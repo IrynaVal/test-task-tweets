@@ -2,29 +2,26 @@
 // import PropTypes from 'prop-types';
 // import { MovieTitle } from './MoviesList.styled';
 
-export const Tweets = () =>
-  // { tweets }
-  {
-    //   const location = useLocation();
+export const Tweets = ({ tweets }) => {
+  // const location = useLocation();
 
-    return (
-      <p>Tweets List</p>
-      //   <ul>
-      //   {
-      /* {films.length !== 0 &&
-        films.map(({ id, title }) => {
+  return (
+    <ul>
+      {tweets.length !== 0 &&
+        tweets.map(({ id, user, avatar }) => {
           return (
             <li key={id}>
-              <MovieTitle to={`/movies/${id}`} state={{ from: location }}>
+              <img src={avatar} alt={user} />
+              <p>{user}</p>
+              {/* <MovieTitle to={`/movies/${id}`} state={{ from: location }}>
                 {title}
-              </MovieTitle>
+              </MovieTitle> */}
             </li>
           );
-        })} */
-      //   }
-      // </ul>
-    );
-  };
+        })}
+    </ul>
+  );
+};
 
 // MoviesList.propTypes = {
 //   films: PropTypes.arrayOf(

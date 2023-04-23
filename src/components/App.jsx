@@ -4,17 +4,17 @@ import { SharedLayout } from './SharedLayout/SharedLayout';
 import { GlobalStyle } from './GlobalStyle';
 // import { CircularProgress } from '@mui/material';
 
-const Home = lazy(() => import('../pages/Home'));
-const Tweets = lazy(() => import('../pages/Tweets'));
+const HomePage = lazy(() => import('../pages/HomePage'));
+const TweetsPage = lazy(() => import('../pages/TweetsPage'));
 
 export const App = () => {
   return (
     <>
       <Routes>
         <Route path="/" element={<SharedLayout />}>
-          <Route index element={<Home />} />
-          <Route path="/tweets" element={<Tweets />} />
-          <Route path="*" element={<Home />} />
+          <Route index element={<HomePage />} />
+          <Route path="/tweets" element={<TweetsPage />} />
+          <Route path="*" element={<HomePage />} />
         </Route>
       </Routes>
       <GlobalStyle />
