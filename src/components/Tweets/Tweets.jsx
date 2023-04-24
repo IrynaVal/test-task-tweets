@@ -8,14 +8,24 @@ export const Tweets = ({ tweets }) => {
   return (
     <ul>
       {tweets.length !== 0 &&
-        tweets.map(({ id, user, avatar }) => {
+        tweets.map(({ id, user, avatar, followers, tweets }) => {
+          const tweetsText = 'tweets';
+          const followersText = 'followers';
+          const buttonText = 'follow';
           return (
             <li key={id}>
               <img src={avatar} alt={user} />
-              <p>{user}</p>
-              {/* <MovieTitle to={`/movies/${id}`} state={{ from: location }}>
-                {title}
-              </MovieTitle> */}
+              <p>
+                {tweets} {tweetsText.toUpperCase()}
+              </p>
+              <p>
+                {followers} {followersText.toUpperCase()}
+              </p>
+              <button type="button">{buttonText.toUpperCase()}</button>
+              {/* <Link to={`${product.id}`} state={{ from: location }}>
+            <img src="https://via.placeholder.com/200x100" alt="" />
+            <ProductName>{product.name}</ProductName>
+          </Link> */}
             </li>
           );
         })}
