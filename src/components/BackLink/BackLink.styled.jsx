@@ -5,5 +5,9 @@ export const StyledLink = styled(Link)`
   display: block;
   margin-bottom: 20px;
   text-decoration: none;
-  color: black;
+  color: #373737;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
 `;

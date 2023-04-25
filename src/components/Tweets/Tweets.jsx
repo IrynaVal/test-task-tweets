@@ -1,35 +1,48 @@
-// import { useLocation } from 'react-router-dom';
+// import { useState } from 'react';
+// import { useEffect } from 'react';
+import { Tweet } from 'components/Tweet/Tweet';
 // import PropTypes from 'prop-types';
-// import { MovieTitle } from './MoviesList.styled';
+import { TweetsList } from './Tweets.styled';
 
 export const Tweets = ({ tweets }) => {
-  // const location = useLocation();
+  //   const [isFollowed, setIsFollowed] = useState(false);
+  // const [followersNumber, setFollowersNumber] = useState(followers);
+  //   const [followersNumber, setFollowersNumber] = useState(() => {
+  //     const parsedData = JSON.parse(window.localStorage.getItem('followersData'));
+  //     return parsedData.followers ?? [];
+  //   });
+  // const [isFollowed, setIsFollowed] = useState(() => {
+  //   return JSON.parse(window.localStorage.getItem('isFollowed') ?? 'false');
+  // });
+  // useEffect(() => {
+  //   window.localStorage.setItem('isFollowed', JSON.stringify(isFollowed));
+  // }, [isFollowed]);
+  // })
+
+  // useEffect(() => {
+  //   const tweetsArray = tweets.map(({ id, isFollowed }) => {
+  //     let followersData = {
+  //       id: id,
+  //       isFollowed: isFollowed,
+  //     };
+  //     let localStorageArray = [];
+  //     // if (localStorageArray.includes(followersData.id)) {
+  //     //   return;
+  //     // }
+  //     localStorageArray.push(followersData);
+  //     return localStorageArray;
+  //   });
+  //   window.localStorage.setItem('isFollowed', JSON.stringify(tweetsArray));
+  //   // window.localStorage.setItem('followersData', JSON.stringify(followersData));
+  // }, [tweets]);
 
   return (
-    <ul>
+    <TweetsList>
       {tweets.length !== 0 &&
-        tweets.map(({ id, user, avatar, followers, tweets }) => {
-          const tweetsText = 'tweets';
-          const followersText = 'followers';
-          const buttonText = 'follow';
-          return (
-            <li key={id}>
-              <img src={avatar} alt={user} />
-              <p>
-                {tweets} {tweetsText.toUpperCase()}
-              </p>
-              <p>
-                {followers} {followersText.toUpperCase()}
-              </p>
-              <button type="button">{buttonText.toUpperCase()}</button>
-              {/* <Link to={`${product.id}`} state={{ from: location }}>
-            <img src="https://via.placeholder.com/200x100" alt="" />
-            <ProductName>{product.name}</ProductName>
-          </Link> */}
-            </li>
-          );
+        tweets.map(tweet => {
+          return <Tweet item={tweet} key={tweet.id} />;
         })}
-    </ul>
+    </TweetsList>
   );
 };
 

@@ -38,10 +38,10 @@ export const StyledLink = styled(NavLink)`
   font-size: 18px;
 
   &:hover {
-    color: orange;
+    color: #ebd8ff;
   }
 
   &.active {
-    color: red;
+    color: #5cd3a8;
   }
 `;

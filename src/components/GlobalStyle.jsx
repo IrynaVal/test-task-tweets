@@ -28,11 +28,16 @@ p {
 
 ul {
   margin: 0;
-  padding-top: 30px;
+  padding: 0px;
 }
 
 img {
   display: block;
-  max-width: 100%;
-  height: auto;
+  width: 100%;
+  height: 100%;
+}
+
+button {
+  cursor: pointer;
+  border: none;
 }`;

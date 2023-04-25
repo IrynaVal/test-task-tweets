@@ -9,7 +9,7 @@ import { useLocation } from 'react-router-dom';
 import { useRef } from 'react';
 import { BackLink } from 'components/BackLink/BackLink';
 import { Tweets } from 'components/Tweets/Tweets';
-import { Button } from 'components/Button/Button';
+import { LoadButton } from 'components/LoadButton/LoadButton';
 
 const TweetsPage = () => {
   const location = useLocation();
@@ -29,8 +29,6 @@ const TweetsPage = () => {
         }
 
         setTweets(prevState => {
-          console.log(prevState);
-          console.log(data);
           return [...prevState, ...data];
         });
 
@@ -56,7 +54,6 @@ const TweetsPage = () => {
       <BackLink to={backLinkLocationRef.current}>Back</BackLink>
       {tweets.length !== 0 && <Tweets tweets={tweets} />}
       {loading && (
-        // <p>Loading...</p>
         <ColorRing
           visible={true}
           height="80"
@@ -67,7 +64,7 @@ const TweetsPage = () => {
           colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
         />
       )}
-      {tweets.length !== 0 && !loading && <Button onClick={handleLoad} />}
+      {tweets.length !== 0 && !loading && <LoadButton onClick={handleLoad} />}
     </>
   );
 };
