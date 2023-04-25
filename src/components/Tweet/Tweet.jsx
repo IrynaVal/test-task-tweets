@@ -81,10 +81,11 @@ export const Tweet = ({ item: { id, user, avatar, followers, tweets } }) => {
       </ImgBox>
       <TextBox>
         <Text>
-          {tweets} {tweetsText.toUpperCase()}
+          {tweets.toLocaleString('en-IN')} {tweetsText.toUpperCase()}
         </Text>
         <Text>
-          {followersNumber} {followersText.toUpperCase()}
+          {followersNumber.toLocaleString('en-IN')}{' '}
+          {followersText.toUpperCase()}
         </Text>
       </TextBox>
 
