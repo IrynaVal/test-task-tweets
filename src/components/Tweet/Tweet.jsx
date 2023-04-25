@@ -88,15 +88,11 @@ export const Tweet = ({ item: { id, user, avatar, followers, tweets } }) => {
         </Text>
       </TextBox>
 
-      {isFollowed ? (
-        <TweetButton
-          text="following"
-          isActive={isFollowed}
-          onClick={() => toggleIsFollowed(id)}
-        />
-      ) : (
-        <TweetButton text="follow" onClick={() => toggleIsFollowed(id)} />
-      )}
+      <TweetButton
+        text={isFollowed ? 'following' : 'follow'}
+        isActive={isFollowed}
+        onClick={() => toggleIsFollowed(id)}
+      />
     </Card>
   );
 };
