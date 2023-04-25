@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-// import PropTypes from 'prop-types';
+import { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import { Card, ImgBox, TextBox, Text } from './Tweet.styled';
 import { TweetButton } from 'components/TweetButton/TweetButton';
 import { updateUser } from 'services/getUsers';
@@ -50,26 +50,23 @@ export const Tweet = ({ item: { id, user, avatar, followers, tweets } }) => {
   const toggleIsFollowed = id => {
     if (!isFollowed) {
       setIsFollowed(true);
-      // saveToLocalStorage(id, !isFollowed);
       setFollowersNumber(prevState => prevState + 1);
       updateUser(id, followersNumber + 1)
         .then(data => {
           console.log(data);
-          // setFollowersNumber(data.followers);
         })
         .catch(error => {
-          console.log('error');
+          toast.error('Sorry, error happened.');
         });
     } else {
       setIsFollowed(false);
-      // saveToLocalStorage(id, !isFollowed);
       setFollowersNumber(prevState => prevState - 1);
       updateUser(id, followersNumber - 1)
         .then(data => {
           console.log(data);
         })
         .catch(error => {
-          console.log('error');
+          toast.error('Sorry, error happened.');
         });
     }
   };
@@ -95,25 +92,11 @@ export const Tweet = ({ item: { id, user, avatar, followers, tweets } }) => {
         <TweetButton
           text="following"
           isActive={isFollowed}
-          // variant="following"
           onClick={() => toggleIsFollowed(id)}
         />
       ) : (
-        <TweetButton
-          text="follow"
-          // variant="follow"
-          // style={{ backgroundColor: getBgColor(variant) }}
-          onClick={() => toggleIsFollowed(id)}
-        />
+        <TweetButton text="follow" onClick={() => toggleIsFollowed(id)} />
       )}
     </Card>
   );
 };
-
-//ImageGalleryItem.propTypes = {
-//   item: PropTypes.shape({
-//     webformatURL: PropTypes.string.isRequired,
-//     largeImageURL: PropTypes.string.isRequired,
-//     tags: PropTypes.string.isRequired,
-//   }).isRequired,
-// };

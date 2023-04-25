@@ -1,10 +1,7 @@
 import { useState, useEffect } from 'react';
-// import { Toaster, toast } from 'react-hot-toast';
+import { Toaster, toast } from 'react-hot-toast';
 import { ColorRing } from 'react-loader-spinner';
-// import { Searchbar } from '../components/Searchbar/Searchbar';
 import { getUsers } from '../services/getUsers';
-// import { MoviesList } from 'components/MoviesList/MoviesList';
-// import { useSearchParams } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 import { useRef } from 'react';
 import { BackLink } from 'components/BackLink/BackLink';
@@ -23,7 +20,6 @@ const TweetsPage = () => {
     setLoading(true);
     getUsers(page, tweetsPerPage)
       .then(data => {
-        // console.log(data);
         if (data.length === 0) {
           return Promise.reject(new Error());
         }
@@ -31,14 +27,9 @@ const TweetsPage = () => {
         setTweets(prevState => {
           return [...prevState, ...data];
         });
-
-        // setTweets(data);
       })
       .catch(error => {
-        // toast.error(
-        //   'Sorry, there are no movies matching your search query. Please try again.'
-        // );
-        console.log('error');
+        toast.error('Sorry, error happened.');
       })
       .finally(() => {
         setLoading(false);
@@ -65,6 +56,7 @@ const TweetsPage = () => {
         />
       )}
       {tweets.length !== 0 && !loading && <LoadButton onClick={handleLoad} />}
+      <Toaster />
     </>
   );
 };

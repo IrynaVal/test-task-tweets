@@ -9,17 +9,6 @@ export async function getUsers(page, tweetsPerPage) {
   return response.data;
 }
 
-// export async function updateUser(id, followersNumber) {
-//   const response = await axios.put(`${BASE_URL}/users/${id}`, {
-//     method: 'PUT',
-//     headers: { 'content-type': 'application/json' },
-//     body: JSON.stringify({ followers: followersNumber }),
-//   });
-//   // console.log(response);
-//   console.log(response.data);
-//   return response;
-// }
-
 export function updateUser(id, followersNumber) {
   return fetch(`${BASE_URL}/users/${id}`, {
     method: 'PUT',
@@ -33,27 +22,3 @@ export function updateUser(id, followersNumber) {
     throw new Error(response.statusText);
   });
 }
-
-// export const updateUser = async () => {
-//   const response = await fetch(
-//     (`${BASE_URL}/users/2`,
-//     {
-//       method: 'PUT',
-//       headers: { 'content-type': 'application/json' },
-//       body: JSON.stringify({ followers: 25000 }),
-//     })
-//   );
-//   const user = await response.json();
-//   return user;
-// };
-// putUser().then(user => console.log(user));
-
-// axios.patch(url[, data[, config]])
-// axios({
-//   method: 'post',
-//   url: '/user/12345',
-//   data: {
-//     firstName: 'Fred',
-//     lastName: 'Flintstone',
-//   },
-// });
