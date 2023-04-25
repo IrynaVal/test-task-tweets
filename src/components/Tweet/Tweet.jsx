@@ -30,16 +30,16 @@ export const Tweet = ({ item: { id, user, avatar, followers, tweets } }) => {
   //   window.localStorage.setItem('isFollowed', JSON.stringify(array));
   // }, [id, isFollowed]);
 
-  // const saveToLocalStorage = (id, isFollowed) => {
+  // const saveToLocalStorage = item => {
   //   let localStorageArray = [];
-  //   const followersData = {
-  //     id: id,
-  //     isFollowed,
-  //   };
-  //   if (localStorageArray.includes(followersData.id)) {
-  //     return;
-  //   }
-  //   localStorageArray.push(followersData);
+  // const followersData = {
+  //   id: id,
+  //   isFollowed,
+  // };
+  // if (localStorageArray.includes(followersData.id)) {
+  //   return;
+  // }
+  //   localStorageArray.push(item);
 
   //   window.localStorage.setItem(
   //     'isFollowed',
@@ -71,22 +71,14 @@ export const Tweet = ({ item: { id, user, avatar, followers, tweets } }) => {
     }
   };
 
-  const tweetsText = 'tweets';
-  const followersText = 'followers';
-
   return (
     <Card key={id}>
       <ImgBox>
         <img src={avatar} alt={user} />
       </ImgBox>
       <TextBox>
-        <Text>
-          {tweets.toLocaleString('en-IN')} {tweetsText.toUpperCase()}
-        </Text>
-        <Text>
-          {followersNumber.toLocaleString('en-IN')}{' '}
-          {followersText.toUpperCase()}
-        </Text>
+        <Text>{tweets.toLocaleString('en-IN')} tweets</Text>
+        <Text>{followersNumber.toLocaleString('en-IN')} followers</Text>
       </TextBox>
 
       <TweetButton
