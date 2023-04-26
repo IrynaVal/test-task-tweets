@@ -15,6 +15,13 @@ const TweetsPage = () => {
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
   const [tweetsPerPage] = useState(3);
+  const [followingTweets, setFollowingTweets] = useState(() => {
+    return JSON.parse(window.localStorage.getItem('following')) ?? [];
+  });
+
+  useEffect(() => {
+    window.localStorage.setItem('following', JSON.stringify(followingTweets));
+  }, [followingTweets]);
 
   useEffect(() => {
     setLoading(true);
@@ -43,7 +50,13 @@ const TweetsPage = () => {
   return (
     <>
       <BackLink to={backLinkLocationRef.current}>Back</BackLink>
-      {tweets.length !== 0 && <Tweets tweets={tweets} />}
+      {tweets.length !== 0 && (
+        <Tweets
+          tweets={tweets}
+          setFollowingTweets={setFollowingTweets}
+          followingTweets={followingTweets}
+        />
+      )}
       {loading && (
         <ColorRing
           visible={true}

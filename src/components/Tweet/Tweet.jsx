@@ -1,34 +1,28 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { Card, ImgBox, TextBox, Text, ImgEllipse } from './Tweet.styled';
 import { TweetButton } from 'components/TweetButton/TweetButton';
 import { updateUser } from 'services/getUsers';
 
-export const Tweet = ({ item: { id, user, avatar, followers, tweets } }) => {
-  const [isFollowed, setIsFollowed] = useState(false);
-  const [followersNumber, setFollowersNumber] = useState(followers);
-  const [followingTweets, setFollowingTweets] = useState(() => {
-    return JSON.parse(window.localStorage.getItem('following')) ?? [];
-  });
+export const Tweet = ({ item, setFollowingTweets, followed }) => {
+  const [isFollowed, setIsFollowed] = useState(followed);
+  const [followersNumber, setFollowersNumber] = useState(item.followers);
 
-  useEffect(() => {
-    window.localStorage.setItem('following', JSON.stringify(followingTweets));
-    // followingTweets.map(tweet => {
-    //   setIsFollowed(true);
-    //   return tweet;
-    // });
-  }, [followingTweets]);
+  // useEffect(() => {
+  //    idArray.map(tweet => {
+  //   if (idArray.includes([item.id])) {
+  //     setIsFollowed(true);
+  //   }
+  //  return;
+  // }, [idArray, item.id]);
 
   const toggleIsFollowed = id => {
     if (!isFollowed) {
       setIsFollowed(true);
-
       setFollowersNumber(prevState => prevState + 1);
       updateUser(id, followersNumber + 1)
         .then(data => {
           setFollowingTweets(prevState => [...prevState, data]);
-          // setFollowingTweets([data]);
-          console.log(followingTweets);
         })
         .catch(error => {
           toast.error('Sorry, error happened.');
@@ -41,8 +35,6 @@ export const Tweet = ({ item: { id, user, avatar, followers, tweets } }) => {
           setFollowingTweets(prevState =>
             prevState.filter(tweet => tweet.id !== data.id)
           );
-
-          console.log(data);
         })
         .catch(error => {
           toast.error('Sorry, error happened.');
@@ -51,21 +43,21 @@ export const Tweet = ({ item: { id, user, avatar, followers, tweets } }) => {
   };
 
   return (
-    <Card key={id} isFollowed={isFollowed}>
+    <Card key={item.id} isFollowed={isFollowed}>
       <ImgEllipse>
         <ImgBox>
-          <img src={avatar} alt={user} />
+          <img src={item.avatar} alt={item.user} />
         </ImgBox>
       </ImgEllipse>
       <TextBox>
-        <Text>{tweets.toLocaleString('en-IN')} tweets</Text>
+        <Text>{item.tweets.toLocaleString('en-IN')} tweets</Text>
         <Text>{followersNumber.toLocaleString('en-IN')} followers</Text>
       </TextBox>
 
       <TweetButton
         text={isFollowed ? 'following' : 'follow'}
         isActive={isFollowed}
-        onClick={() => toggleIsFollowed(id)}
+        onClick={() => toggleIsFollowed(item.id)}
       />
     </Card>
   );
