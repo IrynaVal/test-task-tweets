@@ -1,1 +1,0 @@
-{"version":3,"file":"static/js/983.4c444cc3.chunk.js","mappings":"0JAQA,UARa,WACX,OACE,+BACE,eAAIA,MAAM,SAAV,uBAGL,C","sources":["pages/HomePage.jsx"],"sourcesContent":["const Home = () => {\n  return (\n    <>\n      <h2 align=\"center\">Welcome!</h2>\n    </>\n  );\n};\n\nexport default Home;\n"],"names":["align"],"sourceRoot":""}
