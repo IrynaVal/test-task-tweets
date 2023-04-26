@@ -13,6 +13,10 @@ export const Tweet = ({ item: { id, user, avatar, followers, tweets } }) => {
 
   useEffect(() => {
     window.localStorage.setItem('following', JSON.stringify(followingTweets));
+    // followingTweets.map(tweet => {
+    //   setIsFollowed(true);
+    //   return tweet;
+    // });
   }, [followingTweets]);
 
   const toggleIsFollowed = id => {
@@ -34,10 +38,9 @@ export const Tweet = ({ item: { id, user, avatar, followers, tweets } }) => {
       setFollowersNumber(prevState => prevState - 1);
       updateUser(id, followersNumber - 1)
         .then(data => {
-          setFollowingTweets(
-            followingTweets.filter(tweet => tweet.id !== data.id)
+          setFollowingTweets(prevState =>
+            prevState.filter(tweet => tweet.id !== data.id)
           );
-          // followingTweets = newArray;
 
           console.log(data);
         })
