@@ -21,6 +21,5 @@ export const StyledButton = styled.button`
     background-color: ${props => {
       return props.isActive ? '#5cd3a8' : '#ebd8ff';
     }}
-  
   }
 `;

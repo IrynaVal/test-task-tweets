@@ -1,23 +1,16 @@
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { Card, ImgBox, TextBox, Text } from './Tweet.styled';
+import { Card, ImgBox, TextBox, Text, ImgEllipse } from './Tweet.styled';
 import { TweetButton } from 'components/TweetButton/TweetButton';
 import { updateUser } from 'services/getUsers';
 
 export const Tweet = ({ item: { id, user, avatar, followers, tweets } }) => {
   const [isFollowed, setIsFollowed] = useState(false);
   const [followersNumber, setFollowersNumber] = useState(followers);
-  //   const [followersNumber, setFollowersNumber] = useState(() => {
-  //     const parsedData = JSON.parse(window.localStorage.getItem('followersData'));
-  //     return parsedData.followers ?? [];
-  //   });
-  //   const [isFollowed, setIsFollowed] = useState(() => {
-  //     return JSON.parse(window.localStorage.getItem('isFollowed') ?? 'false');
-  //   });
-  //   useEffect(() => {
-  //     window.localStorage.setItem('isFollowed', JSON.stringify(isFollowed));
-  //   }, [isFollowed]);
-  // })
+
+  // useEffect(() => {
+  //   window.localStorage.setItem('following', JSON.stringify(isFollowed));
+  // }, [isFollowed]);
 
   // useEffect(() => {
   //   const followersData = {
@@ -29,30 +22,25 @@ export const Tweet = ({ item: { id, user, avatar, followers, tweets } }) => {
   //   array.push(followersData);
   //   window.localStorage.setItem('isFollowed', JSON.stringify(array));
   // }, [id, isFollowed]);
+  let localStorageArray = [];
+  const saveToLocalStorage = user => {
+    if (localStorageArray.includes(user)) {
+      return;
+    }
+    localStorageArray.push(user);
 
-  // const saveToLocalStorage = item => {
-  //   let localStorageArray = [];
-  // const followersData = {
-  //   id: id,
-  //   isFollowed,
-  // };
-  // if (localStorageArray.includes(followersData.id)) {
-  //   return;
-  // }
-  //   localStorageArray.push(item);
-
-  //   window.localStorage.setItem(
-  //     'isFollowed',
-  //     JSON.stringify(localStorageArray)
-  //   );
-  // };
+    window.localStorage.setItem('following', JSON.stringify(localStorageArray));
+  };
 
   const toggleIsFollowed = id => {
     if (!isFollowed) {
       setIsFollowed(true);
+
       setFollowersNumber(prevState => prevState + 1);
       updateUser(id, followersNumber + 1)
         .then(data => {
+          // window.localStorage.setItem('following', JSON.stringify(data));
+          saveToLocalStorage(data);
           console.log(data);
         })
         .catch(error => {
@@ -63,6 +51,7 @@ export const Tweet = ({ item: { id, user, avatar, followers, tweets } }) => {
       setFollowersNumber(prevState => prevState - 1);
       updateUser(id, followersNumber - 1)
         .then(data => {
+          window.localStorage.removeItem('following');
           console.log(data);
         })
         .catch(error => {
@@ -72,10 +61,12 @@ export const Tweet = ({ item: { id, user, avatar, followers, tweets } }) => {
   };
 
   return (
-    <Card key={id}>
-      <ImgBox>
-        <img src={avatar} alt={user} />
-      </ImgBox>
+    <Card key={id} isFollowed={isFollowed}>
+      <ImgEllipse>
+        <ImgBox>
+          <img src={avatar} alt={user} />
+        </ImgBox>
+      </ImgEllipse>
       <TextBox>
         <Text>{tweets.toLocaleString('en-IN')} tweets</Text>
         <Text>{followersNumber.toLocaleString('en-IN')} followers</Text>
