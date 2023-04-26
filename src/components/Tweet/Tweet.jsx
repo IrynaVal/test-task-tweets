@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 import { Card, ImgBox, TextBox, Text, ImgEllipse } from './Tweet.styled';
 import { TweetButton } from 'components/TweetButton/TweetButton';
@@ -7,30 +7,13 @@ import { updateUser } from 'services/getUsers';
 export const Tweet = ({ item: { id, user, avatar, followers, tweets } }) => {
   const [isFollowed, setIsFollowed] = useState(false);
   const [followersNumber, setFollowersNumber] = useState(followers);
+  const [followingTweets, setFollowingTweets] = useState(() => {
+    return JSON.parse(window.localStorage.getItem('following')) ?? [];
+  });
 
-  // useEffect(() => {
-  //   window.localStorage.setItem('following', JSON.stringify(isFollowed));
-  // }, [isFollowed]);
-
-  // useEffect(() => {
-  //   const followersData = {
-  //     id: id,
-  //     isFollowed,
-  //   };
-  //   return followersData;
-  //   let array = [];
-  //   array.push(followersData);
-  //   window.localStorage.setItem('isFollowed', JSON.stringify(array));
-  // }, [id, isFollowed]);
-  let localStorageArray = [];
-  const saveToLocalStorage = user => {
-    if (localStorageArray.includes(user)) {
-      return;
-    }
-    localStorageArray.push(user);
-
-    window.localStorage.setItem('following', JSON.stringify(localStorageArray));
-  };
+  useEffect(() => {
+    window.localStorage.setItem('following', JSON.stringify(followingTweets));
+  }, [followingTweets]);
 
   const toggleIsFollowed = id => {
     if (!isFollowed) {
@@ -39,9 +22,9 @@ export const Tweet = ({ item: { id, user, avatar, followers, tweets } }) => {
       setFollowersNumber(prevState => prevState + 1);
       updateUser(id, followersNumber + 1)
         .then(data => {
-          // window.localStorage.setItem('following', JSON.stringify(data));
-          saveToLocalStorage(data);
-          console.log(data);
+          setFollowingTweets(prevState => [...prevState, data]);
+          // setFollowingTweets([data]);
+          console.log(followingTweets);
         })
         .catch(error => {
           toast.error('Sorry, error happened.');
@@ -51,7 +34,11 @@ export const Tweet = ({ item: { id, user, avatar, followers, tweets } }) => {
       setFollowersNumber(prevState => prevState - 1);
       updateUser(id, followersNumber - 1)
         .then(data => {
-          window.localStorage.removeItem('following');
+          setFollowingTweets(
+            followingTweets.filter(tweet => tweet.id !== data.id)
+          );
+          // followingTweets = newArray;
+
           console.log(data);
         })
         .catch(error => {

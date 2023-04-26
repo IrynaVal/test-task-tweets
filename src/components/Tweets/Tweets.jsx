@@ -1,12 +1,8 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import { Tweet } from 'components/Tweet/Tweet';
 import { TweetsList } from './Tweets.styled';
 
 export const Tweets = ({ tweets }) => {
-  const [followingTweets, setFollowingTweets] = useState(() => {
-    return JSON.parse(window.localStorage.getItem('following')) ?? [];
-  });
-
   console.log(tweets);
 
   return (
@@ -18,3 +14,14 @@ export const Tweets = ({ tweets }) => {
     </TweetsList>
   );
 };
+
+/* {list.map(user => {
+          const followed = followedId.includes(user.id) ? true : false;
+
+          return (
+            <TweetCard
+              key={user.id}
+              userObj={user}
+              setFollowedUsers={setFollowedUsers}
+              followed={followed}
+            /> */
